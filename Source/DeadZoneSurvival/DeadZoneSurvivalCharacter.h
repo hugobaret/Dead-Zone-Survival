@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DeadZoneSurvivalCM.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "DeadZoneSurvivalCharacter.generated.h"
@@ -27,7 +28,7 @@ class ADeadZoneSurvivalCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
@@ -45,22 +46,26 @@ class ADeadZoneSurvivalCharacter : public ACharacter
 	UInputAction* LookAction;
 
 public:
-	ADeadZoneSurvivalCharacter();
-	
+	ADeadZoneSurvivalCharacter(FObjectInitializer const& ObjectInitializer);
+
 
 protected:
+
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	UDeadZoneSurvivalCm* MovementComponent;
+
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	// To add mapping context
 	virtual void BeginPlay();
 

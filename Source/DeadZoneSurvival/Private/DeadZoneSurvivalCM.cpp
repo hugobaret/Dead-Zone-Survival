@@ -1,4 +1,4 @@
-﻿#include "DeadZoneSurvival/DeadZoneSurvivalCM.h"
+﻿#include "DeadZoneSurvival/Public/DeadZoneSurvivalCM.h"
 
 #include "GameFramework/Character.h"
 
@@ -16,6 +16,10 @@ UDeadZoneSurvivalCm::UDeadZoneSurvivalCm()
 	MinAnalogWalkSpeed = 20.f;
 	BrakingDecelerationWalking = 2000.f;
 	BrakingDecelerationFalling = 1500.0f;
+
+	WalkSpeed = 300.0f;
+	JogSpeed = 450.0f;
+	SprintSpeed = 600.0f;
 }
 
 FNetworkPredictionData_Client* UDeadZoneSurvivalCm::GetPredictionData_Client() const
@@ -39,13 +43,11 @@ FNetworkPredictionData_Client* UDeadZoneSurvivalCm::GetPredictionData_Client() c
 void UDeadZoneSurvivalCm::SprintPressed()
 {
 	bSafeIsSprinting = true;
-	UE_LOG(LogTemp, Warning, TEXT("walk speed %f"), MaxWalkSpeed);
 }
 
 void UDeadZoneSurvivalCm::SprintReleased()
 {
 	bSafeIsSprinting = false;
-	UE_LOG(LogTemp, Warning, TEXT("walk speed %f"), MaxWalkSpeed);
 }
 
 void UDeadZoneSurvivalCm::UpdateFromCompressedFlags(uint8 Flags)
@@ -58,8 +60,6 @@ void UDeadZoneSurvivalCm::UpdateFromCompressedFlags(uint8 Flags)
 void UDeadZoneSurvivalCm::OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation, const FVector& OldVelocity)
 {
 	Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
-
-	UE_LOG(LogTemp, Warning, TEXT("Insh ca walk"));
 
 	if (MovementMode == MOVE_Walking)
 	{

@@ -45,23 +45,15 @@ class ADeadZoneSurvivalCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
-public:
-	ADeadZoneSurvivalCharacter(FObjectInitializer const& ObjectInitializer);
-
-
 protected:
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	UDeadZoneSurvivalCm* MovementComponent;
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-
-
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
-	UDeadZoneSurvivalCm* MovementComponent;
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -70,9 +62,10 @@ protected:
 	virtual void BeginPlay();
 
 public:
+	ADeadZoneSurvivalCharacter(FObjectInitializer const& ObjectInitializer);
+
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
-

@@ -42,11 +42,11 @@ class DEADZONESURVIVAL_API UDeadZoneSurvivalCm : public UCharacterMovementCompon
 
 
 	UPROPERTY(EditDefaultsOnly)
-	float SprintSpeed = 600.0f;
+	float SprintSpeed;
 	UPROPERTY(EditDefaultsOnly)
-	float JogSpeed = 300.0f;
+	float JogSpeed;
 	UPROPERTY(EditDefaultsOnly)
-	float WalkSpeed = 150.0f;
+	float WalkSpeed;
 
 public:
 	UDeadZoneSurvivalCm();

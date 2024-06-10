@@ -40,11 +40,8 @@ class DEADZONESURVIVAL_API UDeadZoneSurvivalCm : public UCharacterMovementCompon
 		virtual FSavedMovePtr AllocateNewMove() override;
 	};
 
-
 	UPROPERTY(EditDefaultsOnly)
-	float SprintSpeed;
-	UPROPERTY(EditDefaultsOnly)
-	float JogSpeed;
+	float RunSpeed;
 	UPROPERTY(EditDefaultsOnly)
 	float WalkSpeed;
 

@@ -12,20 +12,17 @@ UDeadZoneSurvivalCm::UDeadZoneSurvivalCm()
 	// instead of recompiling to adjust them
 	JumpZVelocity = 700.f;
 	AirControl = 0.35f;
-	MaxWalkSpeed = 500.f;
+	MaxWalkSpeed = 300.0f;
 	MinAnalogWalkSpeed = 20.f;
 	BrakingDecelerationWalking = 2000.f;
 	BrakingDecelerationFalling = 1500.0f;
 
 	WalkSpeed = 300.0f;
-	JogSpeed = 450.0f;
-	SprintSpeed = 600.0f;
+	RunSpeed = 600.0f;
 }
 
 FNetworkPredictionData_Client* UDeadZoneSurvivalCm::GetPredictionData_Client() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Insh ca"));
-
 	check(PawnOwner != NULL);
 
 	if (!ClientPredictionData)
@@ -64,9 +61,9 @@ void UDeadZoneSurvivalCm::OnMovementUpdated(float DeltaSeconds, const FVector& O
 	if (MovementMode == MOVE_Walking)
 	{
 		if (bSafeIsSprinting)
-			MaxWalkSpeed = SprintSpeed;
+			MaxWalkSpeed = RunSpeed;
 		else
-			MaxWalkSpeed = JogSpeed;
+			MaxWalkSpeed = WalkSpeed;
 	}
 }
 

@@ -56,6 +56,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Movement: Sprint")
 	void SprintReleased();
 
+	UFUNCTION(BlueprintCallable, Category = "Character Movement: Crouch")
+	void CrouchToggle();
+
 	bool bSafeIsSprinting = false;
 
 protected:

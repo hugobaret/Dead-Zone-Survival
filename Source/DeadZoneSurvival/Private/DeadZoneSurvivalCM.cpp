@@ -2,14 +2,13 @@
 
 #include "GameFramework/Character.h"
 
+#pragma region UDeadZoneSurvivalCm Implementation
+
 UDeadZoneSurvivalCm::UDeadZoneSurvivalCm()
 {
-	// Configure character movement
-	bOrientRotationToMovement = true; // Character moves in the direction of input...
-	RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
+	bOrientRotationToMovement = true;
+	RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 
-	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
-	// instead of recompiling to adjust them
 	JumpZVelocity = 700.f;
 	AirControl = 0.35f;
 	MaxWalkSpeed = 300.0f;
@@ -19,6 +18,8 @@ UDeadZoneSurvivalCm::UDeadZoneSurvivalCm()
 
 	WalkSpeed = 300.0f;
 	RunSpeed = 600.0f;
+
+	NavAgentProps.bCanCrouch = true;
 }
 
 FNetworkPredictionData_Client* UDeadZoneSurvivalCm::GetPredictionData_Client() const
@@ -37,6 +38,8 @@ FNetworkPredictionData_Client* UDeadZoneSurvivalCm::GetPredictionData_Client() c
 	return ClientPredictionData;
 }
 
+#pragma region Input
+
 void UDeadZoneSurvivalCm::SprintPressed()
 {
 	bSafeIsSprinting = true;
@@ -46,6 +49,13 @@ void UDeadZoneSurvivalCm::SprintReleased()
 {
 	bSafeIsSprinting = false;
 }
+
+void UDeadZoneSurvivalCm::CrouchToggle()
+{
+	bWantsToCrouch = !bWantsToCrouch;
+}
+
+#pragma endregion
 
 void UDeadZoneSurvivalCm::UpdateFromCompressedFlags(uint8 Flags)
 {
@@ -66,6 +76,10 @@ void UDeadZoneSurvivalCm::OnMovementUpdated(float DeltaSeconds, const FVector& O
 			MaxWalkSpeed = WalkSpeed;
 	}
 }
+
+#pragma endregion
+
+#pragma region FDeadZoneSurvival_SaveMove Implementation
 
 UDeadZoneSurvivalCm::FDeadZoneSurvival_SaveMove::FDeadZoneSurvival_SaveMove()
 {
@@ -120,6 +134,10 @@ void UDeadZoneSurvivalCm::FDeadZoneSurvival_SaveMove::PrepMoveFor(ACharacter* Ch
 	DeadZoneSurvivalCm->bSafeIsSprinting = bSavedIsSprinting;
 }
 
+#pragma endregion
+
+#pragma region FDeadZoneSurvival_NetworkPredictionData Implementation
+
 UDeadZoneSurvivalCm::FDeadZoneSurvival_NetworkPredictionData::FDeadZoneSurvival_NetworkPredictionData(
 	const UCharacterMovementComponent& ClientMovement)
 	: Super(ClientMovement)
@@ -130,3 +148,5 @@ FSavedMovePtr UDeadZoneSurvivalCm::FDeadZoneSurvival_NetworkPredictionData::Allo
 {
 	return MakeShared<FDeadZoneSurvival_SaveMove>();
 }
+
+#pragma endregion

@@ -5,6 +5,9 @@
 
 ADeadZoneSurvivalCameraManager::ADeadZoneSurvivalCameraManager()
 {
+	CrouchBlendTime = 0.0f;
+	ViewPitchMin = -40.0f;
+	ViewPitchMax = 30.0f;
 }
 
 void ADeadZoneSurvivalCameraManager::UpdateViewTarget(FTViewTarget& OutVT, float DeltaTime)

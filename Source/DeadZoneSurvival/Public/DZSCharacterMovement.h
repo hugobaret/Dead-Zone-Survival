@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "DeadZoneSurvivalCM.generated.h"
+#include "DZSCharacterMovement.generated.h"
 
 
 UCLASS()

@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DeadZoneSurvivalCM.h"
+#include "DZSCharacterMovement.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "DeadZoneSurvivalCharacter.generated.h"
+#include "DZSCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -68,4 +68,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	/** Returns DeadZoneSurvivalMovement subobject **/
+	FORCEINLINE UDeadZoneSurvivalCm* GetDeadZoneSurvivalMovementComponent() const { return MovementComponent; }
 };
